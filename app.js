@@ -32,6 +32,7 @@ const getVTMdata = fetch('programdata.json')
                 .then(res => populateDropDowns(res))
 
 const addRemoveClass = (options) => e => {
+    // e.stopPropagation();
     const {className, applyToSibling} = options
     const ele = applyToSibling ? e.target.nextElementSibling : e.target
     ele.classList.toggle(className)  
@@ -51,3 +52,47 @@ addListeners({type: 'click',
             selector: '.dropdowns',
             fn: toggleDropdowns});
 
+const checkTargetAgainstList = (target, nodes) => {
+    const arr = [].slice.call(document.querySelectorAll(nodes));
+    // console.log(arr)
+    const test = arr.includes(target)
+    console.log(test)
+    return test
+}
+
+
+
+document.addEventListener('click', e => {
+    if (e.target.closest("#interests11")){
+        console.log('stay open');
+        return
+    }
+    document.querySelectorAll('.dropdown-content')[0].classList.remove('show')
+})
+
+document.addEventListener('click', e => {
+    if (e.target.closest("#programs11")){
+        console.log('stay open');
+        return
+    }
+    document.querySelectorAll('.dropdown-content')[1].classList.remove('show')
+})
+
+
+
+// var box = document.querySelector(".box");
+
+// // Detect all clicks on the document
+// document.addEventListener("click", function(event) {
+
+// // If user clicks inside the element, do nothing
+// if (event.target.closest(".box")) return;
+
+// // If user clicks outside the element, hide it!
+//     box.classList.add("js-is-hidden");
+// });
+
+
+// document.body.addEventListener('click', e => {
+//     checkTargetAgainstList(e.target, '.dropdowns, .dropdown-content, .list-item')
+// })

@@ -4,6 +4,7 @@
 
 *{
     box-sizing: border-box;
+    /* border: 1px red dotted; */
 }
 
 .show {
@@ -33,7 +34,9 @@
 .dropdown-content{
     padding: 0;
     height: 230px;
-    overflow: scroll;
+    overflow-y: scroll;
+    border: .25px #ccc solid;
+    margin-top: 2px;
 }
 
 .container--item {
