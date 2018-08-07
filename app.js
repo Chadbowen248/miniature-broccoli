@@ -25,17 +25,18 @@ const pipe = (...fns) => start => fns.reduce((x,y) => y(x), start);
 const renderMarkup = category => pipe(getCatergories(category), buildDropDownMarkUp, appendToParent(category));
 
 const populateDropDowns = (res) => {
-    renderMarkup('categories')(res);
-    renderMarkup('programs')(res);
+    renderMarkup('Category')(res);
+    renderMarkup('Programs')(res);
 }
 
-// const getVTMdata = fetch('https://services.share.aarp.org/applications/CoreServices/WSOWebService/vtmresource/jobdata')
-//                 .then(res => res.json())
-//                 .then(res => (res.data))
-//                 .then(res => populateDropDowns(res))
-const getVTMdata = fetch('programdata.json')
+const getVTMdata = fetch('https://services.share.aarp.org/applications/CoreServices/WSOWebService/vtmresource/jobdata')
                 .then(res => res.json())
+                .then(res => (res.data))
                 .then(res => populateDropDowns(res))
+
+// const getVTMdata = fetch('programdata.json')
+//                 .then(res => res.json())
+//                 .then(res => populateDropDowns(res))
 
 const addRemoveClass = (options) => e => {
     const {className, applyToSibling} = options
@@ -59,8 +60,8 @@ const closeDropdownOutsideClick = (id, dropdown) => e => {
     }
     document.getElementById(dropdown).classList.remove('show');
 }
-const closeDropDownPrograms = closeDropdownOutsideClick('#programs11','programs');
-const closeDropDownInterests = closeDropdownOutsideClick('#interests11','categories');
+const closeDropDownPrograms = closeDropdownOutsideClick('#programs11','Programs');
+const closeDropDownInterests = closeDropdownOutsideClick('#interests11','Category');
 
 const getCheckedValues = nodelist => {
     const arr = [];
@@ -74,8 +75,8 @@ const getInputValue = input => input.value
 
 const postSearchData = e => {
     e.preventDefault();
-    const interestArr = getCheckedValues(document.querySelectorAll('#categories input[type=checkbox]:checked'));
-    const programsArr = getCheckedValues(document.querySelectorAll('#programs input[type=checkbox]:checked'));
+    const interestArr = getCheckedValues(document.querySelectorAll('#Category input[type=checkbox]:checked'));
+    const programsArr = getCheckedValues(document.querySelectorAll('#Programs input[type=checkbox]:checked'));
     const zipcode = getInputValue(document.getElementById('postalCode'));
     const distance = getInputValue(document.getElementById('zipcode'));
     console.log(interestArr, programsArr, zipcode, distance)
